@@ -21,6 +21,7 @@
     async function verify() {
       const id = document.getElementById('certId').value;
       const url = "https://script.google.com/macros/s/AKfycbzAbc123XYZ/exec?id=" + id; // https://sidhacademy.github.io/certificate-verification/
+      https://docs.google.com/spreadsheets/d/1OCY9SZhes6GDFzt9k9JAKVz0jufQUOkEy6QvjtuQtFo/edit?usp=sharing
       document.getElementById('output').innerText = "Checking...";
       const res = await fetch(url);
       const data = await res.json();
@@ -37,4 +38,5 @@
     }
   </script>
 </body>
+
 </html>
