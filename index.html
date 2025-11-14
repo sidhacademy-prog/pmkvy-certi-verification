@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Certificate Verification - PMKVY Academy</title>
   <meta charset="UTF-8">
-  <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; }
-    input { padding: 10px; width: 250px; }
-    button { padding: 10px 20px; }
-    .result { margin-top: 20px; font-size: 18px; }
-  </style>
+  <title>PMKVY Certificate Verification</title>
 </head>
 <body>
-  <h2>PMKVY Academy Certificate Verification</h2>
-  <p>Enter your Certificate ID:</p>
-  <input id="certId" placeholder="e.g. CERT-2025-0001">
-  <button onclick="verify()">Verify</button>
-  <div id="output" class="result"></div>
+  <h2>PMKVY Certificate Verification</h2>
 
-  <script>
-    async function verify() {
-      const id = document.getElementById('certId').value;
-      const url = "https://script.google.com/macros/s/AKfycbzAbc123XYZ/exec?id=" + id; https://sidhacademy-prog.github.io/pmkvy-certi-verification/
-     https://docs.google.com/spreadsheets/d/1voQ3lqHCzGefR4UEvtN2rAb2bobdOpSAvYt7isnaTcU/edit?usp=sharing
-      document.getElementById('output').innerText = "Checking...";
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.error) {
-        document.getElementById('output').innerText = "❌ " + data.error;
+  <label>Enter Certificate ID:</label>
+  <input id="cid" placeholder="Example: ABC123">
+  <button onclick="verify()">Check</button>
+
+  <p id="result"></p>
+
+<script>
+// ❗ IMPORTANT:
+// 👉 Just replace YOUR_SHEET_ID with your Google Sheet ID
+let sheetId = "YOUR_SHEET_ID";
+
+function verify() {
+
+  let id = document.getElementById("cid").value.trim();
+  if(id === ""){
+      document.getElementById("result").innerHTML = "Please enter Certificate ID";
+      return;
+  }
+
+  let url = https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv;
+
+  fetch(url)
+    .then(res => res.text())
+    .then(csv => {
+
+      if(csv.includes(id)){
+        document.getElementById("result").innerHTML = "✅ Certificate Verified";
       } else {
-        document.getElementById('output').innerHTML =
-          `✅ Certificate Found<br>
-          <b>Student:</b> ${data.StudentName}<br>
-          <b>Course:</b> ${data.CourseName}<br>
-          <b>Date:</b> ${data.IssueDate}<br>
-          <b>Status:</b> ${data.Status}`;
+        document.getElementById("result").innerHTML = "❌ Certificate Not Found";
       }
-    }
-  </script>
+
+    });
+}
+</script>
+
 </body>
-
 </html>
-
-
